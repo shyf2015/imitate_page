@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="view_img.css">
+</head>
+<body>
+	<div class="bg">
+		<img src="http://pic.58pic.com/58pic/15/35/62/93q58PIC4Ig_1024.jpg">
+	</div>
+	<div class="img_box">
+		<img src="http://tpic.home.news.cn/xhCloudNewsPic/xhpic001/M09/40/CA/wKhTg1eVauIEAAAAAAAAAAAAAAA203.jpg">
+		<img src="http://tpic.home.news.cn/xhCloudNewsPic/xhpic003/M02/1E/1E/wKhThleVZVsEAAAAAAAAAAAAAAA390.jpg">
+		<img src="http://tpic.home.news.cn/xhCloudNewsPic/xhpic001/M07/40/C9/wKhTg1eVagQEAAAAAAAAAAAAAAA465.jpg">
+		<img src="http://tpic.home.news.cn/xhCloudNewsPic/xhpic001/M04/40/6B/wKhTgleVaMMEAAAAAAAAAAAAAAA503.jpg">
+		<img src="http://tpic.home.news.cn/xhCloudNewsPic/xhpic001/M05/40/6A/wKhTgleVaFUEAAAAAAAAAAAAAAA112.jpg">
+		<img src="http://tpic.home.news.cn/xhCloudNewsPic/xhpic002/M00/1C/BC/wKhThVeVaAgEAAAAAAAAAAAAAAA714.jpg">
+		<img src="http://tpic.home.news.cn/xhCloudNewsPic/xhpic003/M07/1E/1A/wKhTh1eVZH4EAAAAAAAAAAAAAAA521.jpg">
+		<img src="http://tpic.home.news.cn/xhCloudNewsPic/xhpic001/M09/40/CA/wKhTg1eVauIEAAAAAAAAAAAAAAA203.jpg">
+	</div>
+	<div class="control">
+		一周不可错过的新鲜事
+	</div>
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script>
+	var arr = [];
+	var index1 = 0;
+	var index2 = 1;
+	var view1,view2,_view1,_view2;
+	var init_left = $('.img_box img').eq(0).offset().left;
+	var init_top = $('.img_box img').eq(0).offset().top;
+	for(var i = 0;i < 8;i++){
+		arr[i] = {
+			view:'',
+			_width: 1,
+			_height: 1,
+			_left: init_left,
+			_top: init_top,
+			opa: 1	
+		}
+	}
+	function view_img1(){
+		if(index1 == 8){
+			index1 -= 2;
+			clearInterval(view1);
+			_view1 = setInterval(_view_img1,100);
+			return;
+		}
+		$('.img_box img').eq(index1).css({
+			width: arr[index1]._width,
+			height: arr[index1]._height,
+			left: arr[index1]._left,
+			top: arr[index1]._top,
+			opacity: arr[index1].opa
+		})
+		arr[index1]._width += 6;
+		arr[index1]._height += 6;
+		arr[index1]._left -= 6.3;
+		arr[index1]._top -= 3;
+		if(arr[index1]._width > 280){
+			arr[index1].opa -= 0.05;
+		}
+		if(arr[index1]._width > 400){
+			index1 += 2;
+		}
+	}
+	function view_img2(){
+		if(index2 == 9){
+			index2 -= 2;
+			clearInterval(view2);
+			_view2 = setInterval(_view_img2,100);
+			return;
+		}
+		$('.img_box img').eq(index2).css({
+			width: arr[index2]._width,
+			height: arr[index2]._height,
+			left: arr[index2]._left,
+			top: arr[index2]._top,
+			opacity: arr[index2].opa
+		})
+		arr[index2]._width += 6;
+		arr[index2]._height += 6;
+		arr[index2]._left += 3.3;
+		arr[index2]._top -= 3;
+		if(arr[index2]._width > 280){
+			arr[index2].opa -= 0.05;
+		}
+		if(arr[index2]._width > 400){
+			index2 += 2;
+		}
+	}
+	setTimeout(function(){
+		view1 = setInterval(view_img1,100);
+	},1000);
+	setTimeout(function(){
+		view2 = setInterval(view_img2,100);
+	},4000);
+	function _view_img1(){
+		if(index1 == -2){
+			index1 += 2;
+			clearInterval(_view1);
+			view1 = setInterval(view_img1,100);
+			return;
+		}
+		$('.img_box img').eq(index1).css({
+			width: arr[index1]._width,
+			height: arr[index1]._height,
+			left: arr[index1]._left,
+			top: arr[index1]._top,
+			opacity: arr[index1].opa
+		})
+		arr[index1]._width -= 6;
+		arr[index1]._height -= 6;
+		arr[index1]._left += 6.3;
+		arr[index1]._top += 3;
+		if(arr[index1]._width < 280){
+			if(arr[index1].opa != 1){
+				arr[index1].opa += 0.05;
+			}
+		}
+		if(arr[index1]._width < 2){
+			index1 -= 2;
+		}
+	}
+	function _view_img2(){
+		if(index2 == -1){
+			index2 += 2;
+			clearInterval(_view2);
+			view2 = setInterval(view_img2,100);
+			return;
+		}
+		$('.img_box img').eq(index2).css({
+			width: arr[index2]._width,
+			height: arr[index2]._height,
+			left: arr[index2]._left,
+			top: arr[index2]._top,
+			opacity: arr[index2].opa
+		})
+		arr[index2]._width -= 6;
+		arr[index2]._height -= 6;
+		arr[index2]._left -= 3.3;
+		arr[index2]._top += 3;
+		if(arr[index2]._width < 280){
+			if(arr[index2].opa != 1){
+				arr[index2].opa += 0.05;
+			}
+		}
+		if(arr[index2]._width < 2){
+			index2 -= 2;
+		}
+	}
+	//$('.play').on('click',function(){
+	//	$(this).addClass('hide');
+	//	$('.pause').removeClass('hide');
+	//	view = setInterval(view_img,100);
+	//})
+	//$('.pause').on('click',function(){
+	//	$(this).addClass('hide');
+	//	$('.play').removeClass('hide');
+	//	clearInterval(view);
+	//})
+</script>
+</body>
+</html>
